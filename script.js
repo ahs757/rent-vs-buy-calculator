@@ -1,14 +1,14 @@
-﻿const defaults = {
-  housePrice: 180,
-  downPaymentRatio: 30,
-  loanYears: 30,
-  loanRate: 4.2,
-  monthlyRent: 3000,
-  rentGrowth: 3,
-  monthlyPropertyFee: 200,
-  annualMaintenance: 2000,
-  holdingYears: 5,
-  priceGrowth: 3,
+const defaults = {
+  housePrice: 0,
+  downPaymentRatio: 0,
+  loanYears: 0,
+  loanRate: 0,
+  monthlyRent: 0,
+  rentGrowth: 0,
+  monthlyPropertyFee: 0,
+  annualMaintenance: 0,
+  holdingYears: 0,
+  priceGrowth: 0,
 };
 
 const fieldOrder = [
