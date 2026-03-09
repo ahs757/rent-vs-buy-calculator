@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>房贷月供与攒钱计划</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <a class="top-back" href="./index.html">← 回到首页</a>
+      <section class="card">
+        <p class="hero-kicker">月供测算页</p>
+        <h1>🏠 看看月供多少</h1>
+        <p class="helper-mood">先把压力算清楚，心里就会更稳。</p>
+      </section>
+
+      <section class="card">
+        <h2>贷款参数</h2>
+        <div class="saving-grid">
+          <div class="saving-item">
+            <label for="mHousePrice">🏠 房子总价（万元）</label>
+            <input id="mHousePrice" type="number" min="0" step="0.1" />
+          </div>
+          <div class="saving-item">
+            <label for="mDownRatio">💰 首付比例（%）</label>
+            <input id="mDownRatio" type="number" min="0" max="90" step="1" />
+          </div>
+          <div class="saving-item">
+            <label for="mYears">📅 贷款年限</label>
+            <input id="mYears" type="number" min="1" max="100" step="1" />
+          </div>
+          <div class="saving-item">
+            <label for="mRate">📈 贷款利率（%）</label>
+            <input id="mRate" type="number" min="0" step="0.01" />
+          </div>
+        </div>
+        <p id="mError" class="error-msg"></p>
+      </section>
+
+      <section class="card result-card">
+        <h2>📊 结果</h2>
+        <div class="result-grid">
+          <div class="metric-card">
+            <p class="metric-label">每月月供</p>
+            <p id="mMonthly" class="metric-value">-</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">总还款额</p>
+            <p id="mTotalPay" class="metric-value">-</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">目标首付</p>
+            <p id="mDownPayment" class="metric-value">-</p>
+          </div>
+        </div>
+        <p id="mEncourage" class="next-hint">你已经在认真规划了，这一步非常关键。</p>
+      </section>
+
+      <section class="card saving-card">
+        <h2>💪 攒首付小助手 · 为你的家加油</h2>
+        <div class="saving-item">
+          <label for="mTargetInput">🎯 你计划的首付（可输入或滑动）</label>
+          <input id="mTargetInput" type="number" min="0" max="5000000" step="1000" />
+          <input id="mTargetRange" type="range" min="0" max="5000000" step="1000" />
+          <p class="saving-tip">金额上限：5,000,000 元</p>
+        </div>
+        <p class="down-target">当前目标首付：<strong id="mTarget">-</strong></p>
+        <div class="saving-grid">
+          <div class="saving-item">
+            <label for="mSaveYears">⏳ 你想多久攒够？</label>
+            <input id="mSaveYears" type="range" min="1" max="600" step="1" value="36" />
+            <p id="mSaveYearsText" class="saving-tip"></p>
+            <p class="saving-result">每月需要存：<strong id="mNeedPerMonth">-</strong></p>
+          </div>
+          <div class="saving-item">
+            <label for="mSaveMonthly">📈 如果每月存多少？</label>
+            <input id="mSaveMonthly" type="range" min="1000" max="100000" step="100" value="3000" />
+            <p id="mSaveMonthlyText" class="saving-tip"></p>
+            <p class="saving-result">预计攒够时间：<strong id="mNeedMonths">-</strong></p>
+          </div>
+        </div>
+        <p id="mTip" class="life-tip"></p>
+      </section>
+
+      <section class="card">
+        <a class="next-action mortgage" href="./index.html">
+          <span class="action-main">🏡 回到“我该租房还是买房？”首页</span>
+          <span class="action-sub">继续比较方案，调整参数</span>
+        </a>
+      </section>
+
+    </main>
+    <script src="./mortgage.js"></script>
+  </body>
+</html>

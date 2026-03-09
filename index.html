@@ -1,0 +1,214 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>租房 vs 买房划算计算器</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+    <main class="container">
+      <header class="hero card">
+        <p class="hero-kicker">居住决策助手</p>
+        <h1>🏡 我该租房还是买房？</h1>
+        <p>别纠结，我帮你算清未来几年的账，给个建议~</p>
+        <a class="hero-jump" href="#result-card">📊 直接看结果</a>
+      </header>
+
+      <section class="card glance-card" id="glance-card">
+        <p id="glanceSummary" class="glance-summary">等你填数字，我会在这里实时告诉你结论。</p>
+        <div class="glance-grid">
+          <div>
+            <p class="metric-label">买房总成本</p>
+            <p id="glanceBuy" class="metric-value">-</p>
+          </div>
+          <div>
+            <p class="metric-label">租房总成本</p>
+            <p id="glanceRent" class="metric-value">-</p>
+          </div>
+          <div>
+            <p class="metric-label">当前差额</p>
+            <p id="glanceDiff" class="metric-value">-</p>
+          </div>
+        </div>
+        <p id="glanceBreakEven" class="glance-break">-</p>
+      </section>
+
+      <section class="card section-input">
+        <h2>告诉我你的情况吧，越详细越准哦</h2>
+        <form id="calc-form" novalidate>
+          <div class="field-grid">
+            <div class="field">
+              <label for="housePrice">
+                🏠 房子总价（万元）
+                <span class="hint" title="大概多少钱？可以先填个估算值">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="housePrice" type="number" step="0.1" min="0" data-key="housePrice" />
+                <input id="housePriceRange" type="range" min="30" max="2000" step="1" data-sync="housePrice" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="downPaymentRatio">
+                💰 首付比例（%）
+                <span class="hint" title="你能拿出多少首付？可填0%-90%">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="downPaymentRatio" type="number" step="1" min="0" max="90" data-key="downPaymentRatio" />
+                <input id="downPaymentRatioRange" type="range" min="0" max="90" step="1" data-sync="downPaymentRatio" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="loanYears">
+                📅 贷款多少年？
+                <span class="hint" title="最长100年，整数">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="loanYears" type="number" step="1" min="1" max="100" data-key="loanYears" />
+                <input id="loanYearsRange" type="range" min="1" max="100" step="1" data-sync="loanYears" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="loanRate">
+                📈 贷款利率（%）
+                <span class="hint" title="目前首套房利率常见约4.2%，可自定义">ⓘ</span>
+              </label>
+              <div class="input-line no-range">
+                <input id="loanRate" type="number" step="0.01" min="0" data-key="loanRate" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="monthlyRent">
+                🏢 现在每月租金（元/月）
+                <span class="hint" title="如果你租房，每月要花多少钱？">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="monthlyRent" type="number" step="1" min="0" data-key="monthlyRent" />
+                <input id="monthlyRentRange" type="range" min="500" max="100000" step="100" data-sync="monthlyRent" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="rentGrowth">
+                📊 租金每年涨多少？（%）
+                <span class="hint" title="通常每年涨3%左右，可填0-10%">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="rentGrowth" type="number" step="0.1" min="0" max="10" data-key="rentGrowth" />
+                <input id="rentGrowthRange" type="range" min="0" max="10" step="0.1" data-sync="rentGrowth" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="monthlyPropertyFee">
+                🏠 每月物业费（元）
+                <span class="hint" title="一般200-500元，也可按真实数填">ⓘ</span>
+              </label>
+              <div class="input-line no-range">
+                <input id="monthlyPropertyFee" type="number" step="1" min="0" data-key="monthlyPropertyFee" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="annualMaintenance">
+                🔧 每年维护费（元）
+                <span class="hint" title="维修家电和小修小补，常见约房价0.1%">ⓘ</span>
+              </label>
+              <div class="input-line no-range">
+                <input id="annualMaintenance" type="number" step="1" min="0" data-key="annualMaintenance" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="holdingYears">
+                ⏳ 你打算住多久？（年）
+                <span class="hint" title="比如5年、10年，建议按真实计划填写">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="holdingYears" type="number" step="1" min="1" max="100" data-key="holdingYears" />
+                <input id="holdingYearsRange" type="range" min="1" max="100" step="1" data-sync="holdingYears" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="priceGrowth">
+                📈 未来房价年涨幅预期（%）
+                <span class="hint" title="保守可填3%，乐观可填5%，也可填负值">ⓘ</span>
+              </label>
+              <div class="input-line">
+                <input id="priceGrowth" type="number" step="0.1" min="-5" max="10" data-key="priceGrowth" />
+                <input id="priceGrowthRange" type="range" min="-5" max="10" step="0.1" data-sync="priceGrowth" />
+              </div>
+            </div>
+          </div>
+          <p id="error-msg" class="error-msg" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="card result-card" id="result-card">
+        <h2>📊 结果总结</h2>
+        <p id="summary" class="summary"></p>
+        <div class="result-grid">
+          <div class="metric-card">
+            <p class="metric-label">📉 买房总成本</p>
+            <p id="buyCost" class="metric-value">-</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">📈 租房总成本</p>
+            <p id="rentCost" class="metric-value">-</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">🧾 买房月均成本</p>
+            <p id="buyMonthlyCost" class="metric-value">-</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">🧾 租房月均成本</p>
+            <p id="rentMonthlyCost" class="metric-value">-</p>
+          </div>
+        </div>
+        <p id="breakEvenText" class="break-even"></p>
+        <div class="bar-compare">
+          <div class="bar-item">
+            <span>买房</span>
+            <div class="bar-track"><div id="buyBar" class="bar"></div></div>
+          </div>
+          <div class="bar-item">
+            <span>租房</span>
+            <div class="bar-track"><div id="rentBar" class="bar"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section-advice">
+        <h2>💡 贴心建议</h2>
+        <p id="advice" class="advice"></p>
+        <h3 class="next-title">💡 接下来，你可以：</h3>
+        <div class="next-actions">
+          <a id="btnMortgage" class="next-action mortgage" href="./mortgage.html">
+            <span class="action-main">🏠 看看月供多少</span>
+            <span class="action-sub">房贷压力早知晓</span>
+          </a>
+          <a id="btnIncome" class="next-action income" href="./income.html">
+            <span class="action-main">💰 算算实际到手</span>
+            <span class="action-sub">税后收入更清晰</span>
+          </a>
+        </div>
+        <p id="nextHint" class="next-hint">等你填数字，我帮你推荐下一步。</p>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <a href="./about.html">关于我们</a>
+      <span>|</span>
+      <a href="./privacy.html">隐私政策</a>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
